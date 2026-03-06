@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Token Swap — Professional UI</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles.css">
+  </head>
+  <body>
+
+    <!-- ── Header ── -->
+    <header>
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <h1>Token Swap</h1>
+      </div>
+      <div id="wallet-section">
+        <select id="cluster-select" title="RPC cluster">
+          <option value="http://127.0.0.1:8899">Localnet</option>
+          <option value="https://api.devnet.solana.com">Devnet</option>
+        </select>
+        <span id="wallet-address"></span>
+        <button id="connect-btn" class="btn btn-primary">Connect Wallet</button>
+      </div>
+    </header>
+
+    <!-- ── Nav tabs ── -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="make">Make Offer</button>
+      <button class="tab" data-tab="take">Take Offer</button>
+      <button class="tab" data-tab="browse">Browse Offers</button>
+    </nav>
+
+    <!-- ── Content ── -->
+    <main>
+
+      <!-- MAKE OFFER -->
+      <section id="tab-make" class="tab-content active">
+        <div class="card">
+          <h2>Create a Swap Offer</h2>
+          <form id="make-form" autocomplete="off">
+
+            <!-- Token A row -->
+            <div class="form-row">
+              <div class="field">
+                <label>Token Mint A — you offer</label>
+                <input id="mint-a" placeholder="Mint address" required />
+              </div>
+              <div class="field">
+                <label>Amount to Offer</label>
+                <input id="amount-a" type="number" min="1" placeholder="e.g. 1000000" required />
+              </div>
+            </div>
+
+            <!-- Token B row -->
+            <div class="form-row">
+              <div class="field">
+                <label>Token Mint B — you want</label>
+                <input id="mint-b" placeholder="Mint address" required />
+              </div>
+              <div class="field">
+                <label>Amount Wanted</label>
+                <input id="amount-b" type="number" min="1" placeholder="e.g. 1000000" required />
+              </div>
+            </div>
+
+            <p class="hint">
+              Amounts are in the token's smallest unit (e.g. 1 000 000 = 1 token with 6 decimals).
+            </p>
+
+            <div class="submit-row">
+              <button type="submit" id="make-btn" class="btn-primary">Create Offer</button>
+            </div>
+          </form>
+
+          <!-- Result shown after successful make -->
+          <div id="make-result" class="hidden" style="margin-top:16px;">
+            <div class="field">
+              <label>Your Offer PDA — share this with your counterparty</label>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <input id="make-result-pda" readonly />
+                <button class="copy-btn" id="copy-pda-btn">copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAKE OFFER -->
+      <section id="tab-take" class="tab-content">
+        <div class="card">
+          <h2>Accept a Swap Offer</h2>
+          <form id="take-form" autocomplete="off">
+            <div class="field">
+              <label>Offer Address (PDA)</label>
+              <input id="offer-address" placeholder="Paste the offer PDA address" required />
+              <p class="hint">You'll send the wanted token B and receive token A from the vault.</p>
+            </div>
+
+            <!-- Preview the offer terms before accepting -->
+            <div id="offer-preview" class="offer-card hidden">
+              <div class="offer-row">
+                <span class="label">Maker</span>
+                <code id="prev-maker"></code>
+              </div>
+              <div class="offer-row">
+                <span class="label">You Receive (Token A)</span>
+                <span class="amount" id="prev-token-a"></span>
+              </div>
+              <div class="offer-row">
+                <span class="label">You Send (Token B)</span>
+                <span class="amount" id="prev-token-b"></span>
+              </div>
+            </div>
+
+            <div class="submit-row">
+              <button type="button" id="preview-btn" class="btn btn-secondary">Preview Offer</button>
+              <button type="submit" id="take-btn" class="btn btn-primary">Take Offer</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- BROWSE OFFERS -->
+      <section id="tab-browse" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <h2>Open Offers On-Chain</h2>
+          <button id="refresh-btn" class="btn btn-secondary btn-sm">↻ Refresh</button>
+        </div>
+        <p class="hint" style="margin-bottom:12px;">
+          All Offer PDA accounts owned by program
+          <code style="color:var(--accent);word-break:break-all;">A4TZ1aEN2UGfT3wz3Fsjuc4z4VgWqZFcJ3o9DfNbv6LY</code>
+        </p>
+        <div id="offers-list">
+          <div class="empty">Connect your wallet and click Refresh to load offers.</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── Activity log ── -->
+    <footer>
+      <div id="log"></div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

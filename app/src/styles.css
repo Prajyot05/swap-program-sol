@@ -1,0 +1,84 @@
+:root{
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --text: #0f1724;
+  --accent: #2563eb;
+  --accent-2: #0ea5a5;
+  --border: #e6e9ef;
+  --radius: 10px;
+  --shadow-sm: 0 6px 18px rgba(16,24,40,0.06);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  display:flex;flex-direction:column;min-height:100vh;
+}
+
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px;background:transparent;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand h1{font-size:18px;font-weight:700;color:var(--text);}
+.brand .logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:inline-block}
+
+#wallet-section{display:flex;align-items:center;gap:10px}
+#wallet-address{font-family:monospace;font-size:13px;color:var(--accent-2);padding:6px 10px;border-radius:999px;background:rgba(14,165,165,0.08);display:none}
+
+/* Buttons */
+.btn{border:1px solid transparent;padding:8px 14px;border-radius:10px;font-weight:600;font-size:13px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-secondary{background:#fff;border:1px solid var(--border);color:var(--text)}
+.btn-sm{padding:6px 10px;font-size:12px}
+
+/* Container */
+.container{width:100%;max-width:980px;margin:0 auto;padding:20px}
+
+nav.tabs{display:flex;gap:8px;padding:0 28px 12px}
+.tab{background:transparent;padding:10px 16px;border-radius:10px;color:var(--muted);border:1px solid transparent;font-weight:600}
+.tab.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);border-color:var(--border)}
+
+main{flex:1;padding:24px 0}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+
+.card{background:var(--surface);border:1px solid var(--border);padding:20px;border-radius:12px;box-shadow:var(--shadow-sm)}
+.card h2{font-size:15px;margin-bottom:12px}
+
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase}
+input[type=text],input[type=number],input{padding:10px;border-radius:8px;border:1px solid var(--border);background:transparent;font-family:monospace;color:var(--text)}
+input:focus{outline:2px solid rgba(37,99,235,0.12);border-color:var(--accent)}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-row{display:flex;justify-content:flex-end;gap:10px;margin-top:6px}
+
+.offer-card{background:#fbfdff;border:1px solid var(--border);padding:14px;border-radius:10px}
+.offer-row{display:flex;justify-content:space-between;align-items:center}
+.offer-row .label{font-size:12px;color:var(--muted)}
+.offer-row code{font-family:monospace;color:var(--accent);font-size:12px}
+.offer-row .amount{font-weight:700;font-size:14px}
+
+#offers-list{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.offer-card .offer-actions{display:flex;justify-content:flex-end;margin-top:8px}
+
+.hint{font-size:12px;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:34px 0}
+
+footer{padding:10px 28px;background:transparent;border-top:1px solid transparent}
+#log{font-family:monospace;font-size:12px;color:var(--muted);max-height:140px;overflow:auto}
+
+.hidden{display:none !important}
+
+@media (max-width:700px){
+  .form-row{grid-template-columns:1fr}
+  .container{padding:14px}
+  nav.tabs{padding:0 14px}
+}
